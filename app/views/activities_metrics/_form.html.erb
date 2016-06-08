@@ -1,0 +1,45 @@
+<%= form_for(@activities_metric) do |f| %>
+  <% if @activities_metric.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@activities_metric.errors.count, "error") %> prohibited this activities_metric from being saved:</h2>
+
+      <ul>
+      <% @activities_metric.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :activity %><br>
+    <%= f.text_field :activity %>
+  </div>
+  <div class="field">
+    <%= f.label :week %><br>
+    <%= f.number_field :week %>
+  </div>
+  <div class="field">
+    <%= f.label :leads %><br>
+    <%= f.number_field :leads %>
+  </div>
+  <div class="field">
+    <%= f.label :relevant_leads %><br>
+    <%= f.number_field :relevant_leads %>
+  </div>
+  <div class="field">
+    <%= f.label :conversion %><br>
+    <%= f.number_field :conversion %>
+  </div>
+  <div class="field">
+    <%= f.label :time_spent %><br>
+    <%= f.number_field :time_spent %>
+  </div>
+  <div class="field">
+    <%= f.label :max_time_client %><br>
+    <%= f.number_field :max_time_client %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

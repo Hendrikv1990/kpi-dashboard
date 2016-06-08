@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Activities Metrics</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Activity</th>
+      <th>Week</th>
+      <th>Leads</th>
+      <th>Relevant leads</th>
+      <th>Conversion</th>
+      <th>Time spent</th>
+      <th>Max time client</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @activities_metrics.each do |activities_metric| %>
+      <tr>
+        <td><%= activities_metric.activity %></td>
+        <td><%= activities_metric.week %></td>
+        <td><%= activities_metric.leads %></td>
+        <td><%= activities_metric.relevant_leads %></td>
+        <td><%= activities_metric.conversion %></td>
+        <td><%= activities_metric.time_spent %></td>
+        <td><%= activities_metric.max_time_client %></td>
+        <td><%= link_to 'Show', activities_metric %></td>
+        <td><%= link_to 'Edit', edit_activities_metric_path(activities_metric) %></td>
+        <td><%= link_to 'Destroy', activities_metric, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Activities metric', new_activities_metric_path %>

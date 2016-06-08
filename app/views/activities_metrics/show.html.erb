@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Activity:</strong>
+  <%= @activities_metric.activity %>
+</p>
+
+<p>
+  <strong>Week:</strong>
+  <%= @activities_metric.week %>
+</p>
+
+<p>
+  <strong>Leads:</strong>
+  <%= @activities_metric.leads %>
+</p>
+
+<p>
+  <strong>Relevant leads:</strong>
+  <%= @activities_metric.relevant_leads %>
+</p>
+
+<p>
+  <strong>Conversion:</strong>
+  <%= @activities_metric.conversion %>
+</p>
+
+<p>
+  <strong>Time spent:</strong>
+  <%= @activities_metric.time_spent %>
+</p>
+
+<p>
+  <strong>Max time client:</strong>
+  <%= @activities_metric.max_time_client %>
+</p>
+
+<%= link_to 'Edit', edit_activities_metric_path(@activities_metric) %> |
+<%= link_to 'Back', activities_metrics_path %>
