@@ -71,3 +71,8 @@ div {
     list-style: square;
   }
 }
+
+
+label.required:after {
+  content:" *";
+}

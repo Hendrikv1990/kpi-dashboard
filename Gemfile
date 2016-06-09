@@ -1,5 +1,8 @@
 source 'https://rubygems.org'
 
+gem 'bootstrap-sass', '~> 3.2.0'
+gem 'autoprefixer-rails'
+gem 'bootstrap_form'
 gem 'dashing-rails'
 gem 'puma'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
