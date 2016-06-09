@@ -2,7 +2,7 @@
 
 <h1>Listing Activities Metrics</h1>
 
-<table>
+<table class="table table-hover table-striped">
   <thead>
     <tr>
       <th>Activity</th>
@@ -36,4 +36,5 @@
 
 <br>
 
-<%= link_to 'New Activities metric', new_activities_metric_path %>
+<%= link_to 'New Activities metric', new_activities_metric_path, class: "btn btn-default" %>
+<%= link_to 'Dashboard', "dashing/dashboards/", class: "btn btn-info", style: "color: white" %>
