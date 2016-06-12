@@ -95,7 +95,18 @@ def updateActivityWidgets(activity_name)
     end  
 end 
 
-
+def updateWidgetSummaryCurrentVsPrevious(metric_name)
+  current_item = $metricsTotal[$current_week][metric_name][:value]
+  last_item = $metricsTotal[$previous_week][metric_name][:value]
+  $last = 0 
+  $current = 0
+  $last = last_item unless (last_item == nil)
+  $current = current_item unless (current_item == nil)
+  print $last
+  print $current
+      
+  Dashing.send_event(metric_name+" Total", { current: $current, last: $last })
+end
 
 Dashing.scheduler.every '60s' do
   init()
@@ -110,6 +121,9 @@ Dashing.scheduler.every '60s' do
   # kpiSummary per week
   calcMetricsSummary(rows)
   print $metricsTotal[$current_week].values
+  $metrics.each do |metric_name|
+    updateWidgetSummaryCurrentVsPrevious(metric_name)
+  end  
   Dashing.send_event("Metrics Total", { items: $metricsTotal[$current_week].values })
   # data
  # print "Data:"

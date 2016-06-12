@@ -5,9 +5,10 @@
 <div id="summary" class="gridster">
   <h1><span style="text-align:center;"> KPI Summary </span></h1>
   <ul>
-    <li data-row="1" data-col="1" data-sizex="1" data-sizey="2">
+    <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
       <div data-id="Metrics Total" data-view="List" data-unordered="true" data-title="Metrics Total W<%= $current_week %>" data-moreinfo="# KPIs summarised among activities"></div>
     </li>
+    <%= render partial: "layouts/dashing/metric_total", collection: $metrics, as: :metric %>    
   </ul>
 </div>
 <%= render partial: "layouts/dashing/activity", collection: $activities %>
