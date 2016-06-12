@@ -1,6 +1,7 @@
 <!-- each activity on the separate row -->
  <!-- show activity metrics -->
 <div class="gridster">
+  <h1><span style="text-align:center;"> <%=activity%> </span></h1>
   <ul>
     <%= render partial: "layouts/dashing/activity_metric", collection: $metrics, locals:{activity: activity, index: activity_iteration.index}, as: :metric %>
   </ul>
