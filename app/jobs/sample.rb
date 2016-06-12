@@ -3,23 +3,25 @@ require 'rubygems'
 require 'json'
 require 'pp'
 
-  
-$current_week = 2
+$metrics = ["leads","relevant_leads","conversion","time_spent","max_time_client"]  
+$current_week = 1 #max among all weeks in json
 $previous_week = $current_week - 1
 
 def init()
-$activities = []
+$activities = [] # activities available in json
 $data = {} # metrics for each activity
-$metricsTotal = Hash.new({}) # metrics summary
-$metrics = ["leads","relevant_leads","conversion","time_spent","max_time_client"]
-$actualData = {} # metrics per activity for this and previous weeks only
-$diagramInput = Hash.new({})
+$metricsTotal = Hash.new({}) # metrics summary for each week
+$diagramInput = Hash.new({}) #metrics per each activity in the format required for diagrams build up
 end
 
 def readJson(file)
    json = File.read(file)
    dataHash = JSON.parse(json)
    return dataHash
+end
+
+def get_latest_week(dataHash)
+  return dataHash.map{|row| row["week"]}.max
 end
 
 def get_activities_names(dataHash)
@@ -93,10 +95,14 @@ def updateActivityWidgets(activity_name)
     end  
 end 
 
+
+
 Dashing.scheduler.every '60s' do
   init()
   rows = readJson('activities_metrics.json')
   $activities = get_activities_names(rows)
+  $current_week = get_latest_week(rows) #max among all weeks in json
+  $previous_week = $current_week - 1
   $activities.each do |activity_name|
      getAllActivityMetrics(rows, activity_name)
      updateActivityWidgets(activity_name)
