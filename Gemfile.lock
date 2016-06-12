@@ -120,6 +120,8 @@ GEM
     rdoc (4.2.2)
       json (~> 1.4)
     redis (3.2.2)
+    rickshaw_rails (1.4.5)
+      railties (>= 3.1.0)
     rufus-scheduler (3.2.0)
     sass (3.4.22)
     sass-rails (5.0.4)
@@ -169,6 +171,7 @@ DEPENDENCIES
   jquery-rails
   puma
   rails (= 4.2.6)
+  rickshaw_rails
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   spring

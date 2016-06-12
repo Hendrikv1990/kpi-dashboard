@@ -1,4 +1,9 @@
+<!-- each activity on the separate row -->
+ <!-- show activity metrics -->
+ <%= render partial: "layouts/dashing/activity_metric", collection: $metrics, locals:{activity: activity, index: activity_iteration.index}, as: :metric %>
 
-<li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
-      <div data-id="<%= activity %>" data-view="Number" data-title="<%= activity %>" data-moreinfo="KPI: leads" data-prefix=""></div>
- </li>
+<!--
+<li data-row="<%= activity_iteration.index+1 %>" data-col="1" data-sizex="1" data-sizey="1">
+    <%= render partial: "layouts/dashing/activity_metric_graph", collection: $metrics, locals:{activity: activity}, as: :metric %>
+</li>
+-->

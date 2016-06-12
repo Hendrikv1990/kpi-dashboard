@@ -4,11 +4,10 @@
 
 <div class="gridster">
   <ul>
-    <%= render partial: "layouts/dashing/activity", collection: $activities %>
-
     <li data-row="1" data-col="1" data-sizex="1" data-sizey="2">
       <div data-id="Metrics Total" data-view="List" data-unordered="true" data-title="Metrics Total" data-moreinfo="# KPIs summarised among activities"></div>
     </li>
+    <%= render partial: "layouts/dashing/activity", collection: $activities %>
 
   </ul>
   <center><div style="font-size: 12px">Try this: curl -X PUT 'http://<%= request.host %>:<%= request.port %>/dashing/widgets/welcome' -d "widget[text]=Dashing is awesome"</div></center>

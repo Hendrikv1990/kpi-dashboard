@@ -14,6 +14,8 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap-sprockets
+//= require d3.v2
+//= require rickshaw
+//= require dashing/widgets/dashboard.js
 //= require_tree .
-
 
