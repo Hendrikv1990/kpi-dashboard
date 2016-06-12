@@ -3,15 +3,18 @@ require 'rubygems'
 require 'json'
 require 'pp'
 
-$current = 0
+  
 $current_week = 2
 $previous_week = $current_week - 1
+
+def init()
 $activities = []
 $data = {} # metrics for each activity
-$metricsTotal = Hash.new({ value: 0 }) # metrics summary
+$metricsTotal = Hash.new({}) # metrics summary
 $metrics = ["leads","relevant_leads","conversion","time_spent","max_time_client"]
 $actualData = {} # metrics per activity for this and previous weeks only
 $diagramInput = Hash.new({})
+end
 
 def readJson(file)
    json = File.read(file)
@@ -32,22 +35,15 @@ end
 
 
 def calcMetricsSummary(dataHash)
-	$metrics.each do |metric_name|
-		$metricsTotal[metric_name] = {label: metric_name, value: 0}
-        dataHash.each{|row| 
-        	week = row["week"].to_s
-        	# for each week?
-        	if (row["week"] == $current_week) then
-        	#if week not in $metricsTotal[metric_name] then 
-        	#	metricsTotal[metric_name][week] 
-        	#    $metricsTotal[metric_name][week] += row[metric_name]
-        	#    print "Metric per week"
-        	#    print $metricsTotal[metric_name][week]
-        	#    print "\n"
-        		$metricsTotal[metric_name][:value] += row[metric_name]
-        	end
-        } 
-    end   
+  total = {}
+  $metricsTotal = dataHash.group_by{|item| item["week"]}.inject({}){|total, (k,v)| 
+    total[k] = Hash.new({})
+    $metrics.each do |metric_name|
+      total[k][metric_name] = {label: metric_name, value: 0}
+      total[k][metric_name][:value] = v.inject(0){|acc, item| acc+item[metric_name]}
+    end
+    total
+  }
 end
 
 #for building diagram activity metrics per time
@@ -98,6 +94,7 @@ def updateActivityWidgets(activity_name)
 end 
 
 Dashing.scheduler.every '60s' do
+  init()
   rows = readJson('activities_metrics.json')
   $activities = get_activities_names(rows)
   $activities.each do |activity_name|
@@ -106,8 +103,8 @@ Dashing.scheduler.every '60s' do
   end  
   # kpiSummary per week
   calcMetricsSummary(rows)
-  print $metricsTotal.values
-  Dashing.send_event("Metrics Total", { items: $metricsTotal.values })
+  print $metricsTotal[$current_week].values
+  Dashing.send_event("Metrics Total", { items: $metricsTotal[$current_week].values })
   # data
  # print "Data:"
  # print $data 
