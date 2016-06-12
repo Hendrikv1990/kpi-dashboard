@@ -96,12 +96,12 @@ def updateActivityWidgets(activity_name)
 end 
 
 def updateWidgetSummaryCurrentVsPrevious(metric_name)
-  current_item = $metricsTotal[$current_week][metric_name][:value]
-  last_item = $metricsTotal[$previous_week][metric_name][:value]
+  current_item = $metricsTotal[$current_week]
+  last_item = $metricsTotal[$previous_week]
   $last = 0 
   $current = 0
-  $last = last_item unless (last_item == nil)
-  $current = current_item unless (current_item == nil)
+  $last = last_item[metric_name][:value] unless (last_item == nil)
+  $current = current_item[metric_name][:value] unless (current_item == nil)
   print $last
   print $current
       
