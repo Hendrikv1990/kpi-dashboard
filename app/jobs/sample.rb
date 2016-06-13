@@ -8,10 +8,11 @@ $current_week = 1 #max among all weeks in json
 $previous_week = $current_week - 1
 
 def init()
+
 $activities = [] # activities available in json
 $data = {} # metrics for each activity
-$metricsTotal = Hash.new({}) # metrics summary for each week
-$diagramInput = Hash.new({}) #metrics per each activity in the format required for diagrams build up
+$metricsTotal = {} # metrics summary for each week
+$diagramInput = {} #metrics per each activity in the format required for diagrams build up
 end
 
 def readJson(file)
@@ -69,15 +70,15 @@ end
 def updateWidgetCurrentVsPrevious(activity_name, metric_name)
   last_item = $diagramInput[activity_name][metric_name].select{|item| item[:x] == $previous_week}
   current_item = $diagramInput[activity_name][metric_name].select{|item| item[:x] == $current_week}
-  print activity_name
-  print metric_name
+
   $last = 0 
   $current = 0
   $last = last_item[0][:y] unless (last_item.length == 0)
   $current = current_item[0][:y] unless (current_item.length == 0)
-  print $last
+
+  print activity_name+" "+metric_name
+  print "Current: "
   print $current
-      
   Dashing.send_event(activity_name+" "+metric_name, { current: $current, last: $last })
 end       
 
@@ -87,6 +88,7 @@ end
 
 def updateActivityWidgets(activity_name)
   # Activity widgets: 
+     $diagramInput[activity_name] = {}
      $metrics.each do |metric_name|
        formWidgetsInputData(activity_name, metric_name)
        # show widget Current Week vs Previous
@@ -102,9 +104,7 @@ def updateWidgetSummaryCurrentVsPrevious(metric_name)
   $current = 0
   $last = last_item[metric_name][:value] unless (last_item == nil)
   $current = current_item[metric_name][:value] unless (current_item == nil)
-  print $last
-  print $current
-      
+
   Dashing.send_event(metric_name+" Total", { current: $current, last: $last })
 end
 
@@ -120,7 +120,6 @@ Dashing.scheduler.every '60s' do
   end  
   # kpiSummary per week
   calcMetricsSummary(rows)
-  print $metricsTotal[$current_week].values
   $metrics.each do |metric_name|
     updateWidgetSummaryCurrentVsPrevious(metric_name)
   end  
