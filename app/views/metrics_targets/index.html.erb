@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Metrics Targets</h1>
+
+<table class="table table-hover table-striped">
+  <thead>
+    <tr>
+      <th>Leads</th>
+      <th>Relevant leads</th>
+      <th>Conversion</th>
+      <th>Time spent</th>
+      <th>Max time client</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @metrics_targets.each do |metrics_target| %>
+      <tr>
+        <td><%= metrics_target.leads %></td>
+        <td><%= metrics_target.relevant_leads %></td>
+        <td><%= metrics_target.conversion %></td>
+        <td><%= metrics_target.time_spent %></td>
+        <td><%= metrics_target.max_time_client %></td>
+        <td><%= link_to 'Show', metrics_target %></td>
+        <td><%= link_to 'Edit', edit_metrics_target_path(metrics_target) %></td>
+        <td><%= link_to 'Destroy', metrics_target, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Metrics Target', new_metrics_target_path, class: "btn btn-default" %>

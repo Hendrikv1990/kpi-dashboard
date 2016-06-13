@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Leads:</strong>
+  <%= @metrics_target.leads %>
+</p>
+
+<p>
+  <strong>Relevant leads:</strong>
+  <%= @metrics_target.relevant_leads %>
+</p>
+
+<p>
+  <strong>Conversion:</strong>
+  <%= @metrics_target.conversion %>
+</p>
+
+<p>
+  <strong>Time spent:</strong>
+  <%= @metrics_target.time_spent %>
+</p>
+
+<p>
+  <strong>Max time client:</strong>
+  <%= @metrics_target.max_time_client %>
+</p>
+
+<%= link_to 'Edit', edit_metrics_target_path(@metrics_target) %> |
+<%= link_to 'Back', metrics_targets_path %>

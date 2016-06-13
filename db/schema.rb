@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160612220444) do
+ActiveRecord::Schema.define(version: 20160613145629) do
 
   create_table "activities_metrics", force: :cascade do |t|
     t.string   "activity"
@@ -24,6 +24,16 @@ ActiveRecord::Schema.define(version: 20160612220444) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.integer  "target"
+  end
+
+  create_table "metrics_targets", force: :cascade do |t|
+    t.integer  "leads"
+    t.integer  "relevant_leads"
+    t.integer  "conversion"
+    t.integer  "time_spent"
+    t.integer  "max_time_client"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
 end

@@ -1,0 +1,20 @@
+<%= bootstrap_form_for(@metrics_target) do |f| %>
+  <% if @metrics_target.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@metrics_target.errors.count, "error") %> prohibited this metrics_target from being saved:</h2>
+
+      <ul>
+      <% @metrics_target.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.number_field :leads, { label: "Leads in Total:" } %>
+  <%= f.number_field :relevant_leads, { label: "Relevant Leads in Total:" } %>
+  <%= f.number_field :conversion, { label: "Potential Customers in Total:" }  %>
+  <%= f.number_field :time_spent, { label: "Time Spent in Total:" } %>
+  <%= f.number_field :max_time_client, { label: "Maximum Time for a Single Client:" } %>
+  <%= f.submit %>
+<% end %>

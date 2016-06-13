@@ -108,6 +108,14 @@ def updateWidgetSummaryCurrentVsPrevious(metric_name)
   Dashing.send_event(metric_name+" Total", { current: $current, last: $last })
 end
 
+def updateWidgetSummaryCurrentVsTarget(metric_name)
+  current_item = $metricsTotal[$current_week]
+  metric_value = current_item[metric_name][:value] unless (current_item == nil)
+  targets = readJson('metrics_targets.json')
+  metric_target = targets[0][metric_name]
+  Dashing.send_event(metric_name+" vs Target", { value: metric_value/metric_target})
+end 
+
 Dashing.scheduler.every '60s' do
   init()
   rows = readJson('activities_metrics.json')
@@ -122,21 +130,7 @@ Dashing.scheduler.every '60s' do
   calcMetricsSummary(rows)
   $metrics.each do |metric_name|
     updateWidgetSummaryCurrentVsPrevious(metric_name)
+    updateWidgetSummaryCurrentVsTarget(metric_name)
   end  
   Dashing.send_event("Metrics Total", { items: $metricsTotal[$current_week].values })
-  # data
- # print "Data:"
- # print $data 
- # print "\n"
- # print "Actual Data:"
- # print $actualData 
- # print "\n"
- # print "MetricsTotal"
- # print $metricsTotal 
-#  print "\n"
-  # add graph for leads KPI
-  #$metricsTotal["leads"]
-  #points << { x: i, y: rand(50) }
-
-
 end
