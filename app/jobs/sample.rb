@@ -6,7 +6,7 @@ require 'pp'
 $metrics = ["leads","relevant_leads","conversion","time_spent","max_time_client"]  
 $current_week = 1 #max among all weeks in json
 $previous_week = $current_week - 1
-
+$targets = []
 def init()
 
 $activities = [] # activities available in json
@@ -111,14 +111,16 @@ end
 def updateWidgetSummaryCurrentVsTarget(metric_name)
   current_item = $metricsTotal[$current_week]
   metric_value = current_item[metric_name][:value] unless (current_item == nil)
-  targets = readJson('metrics_targets.json')
-  metric_target = targets[0][metric_name]
-  Dashing.send_event(metric_name+" vs Target", { value: metric_value/metric_target})
+  metric_target = $targets[0][metric_name]
+  if (metric_target != 0) then
+      Dashing.send_event(metric_name+" vs Target", { value: metric_value*100/metric_target})
+  end
 end 
 
 Dashing.scheduler.every '60s' do
   init()
   rows = readJson('activities_metrics.json')
+  $targets = readJson('metrics_targets.json')
   $activities = get_activities_names(rows)
   $current_week = get_latest_week(rows) #max among all weeks in json
   $previous_week = $current_week - 1
