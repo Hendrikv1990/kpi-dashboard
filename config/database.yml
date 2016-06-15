@@ -22,4 +22,7 @@ test:
 
 production:
   <<: *default
-  database: db/production.sqlite3
+  host: localhost
+  database: kpi
+  username: root
+  password: uV$ekTSL@ZMxI$84
